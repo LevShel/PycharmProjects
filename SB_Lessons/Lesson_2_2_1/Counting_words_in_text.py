@@ -42,3 +42,5 @@ print('\n Counting words:')
 print('There are ', end='')
 for i in range(num_words):
     print(words_list[i][1], ' words "', words_list[i][0], '", ', end='')
+
+input()
