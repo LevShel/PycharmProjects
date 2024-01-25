@@ -2,7 +2,7 @@ Word = input('Enter word: ')
 NumReplaceSymbol = int(input('Number of replaced symbol: '))
 NewSymbol = input('Enter new symbol: ')
 
-# ВАРИАНТ 1
+            # ВАРИАНТ 1
 #
 # NewWord = ''
 #
@@ -17,7 +17,7 @@ NewSymbol = input('Enter new symbol: ')
 #
 # print('New word is: ', NewWord)
 
-# ВАРИАНТ 2
+            # ВАРИАНТ 2
 #
 # SymList = []
 #
@@ -25,7 +25,7 @@ NewSymbol = input('Enter new symbol: ')
 #     SymList.append(Sym)
 # SymList[NumReplaceSymbol-1] = NewSymbol
 
-# ВАРИАНТ 3
+            # ВАРИАНТ 3
 SymList = list(Word)
 SymList[NumReplaceSymbol-1] = NewSymbol
 
