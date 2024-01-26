@@ -1,8 +1,6 @@
 # Шапка
-print('\n\n+--------------+')
-print('| Memory stick |')
-print('+----- by ШелЛ +\n\n')
-
+name_of_programm = 'MemorySticks'
+print('+', '-'*(len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-'*(len(name_of_programm)-8), 'by ШелЛ +\n')
 # Исходная заметка
 array_of_memo = []
 i = 1

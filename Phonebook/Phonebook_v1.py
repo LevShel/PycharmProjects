@@ -1,7 +1,6 @@
 # Шапка
-print('+-----------+')
-print('| PhoneBook |')
-print('+-- by ШелЛ +')
+name_of_programm = 'PhoneBook'
+print('+', '-'*(len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-'*(len(name_of_programm)-8), 'by ШелЛ +\n')
 
 phonebook_dict = {
     'ShelL': 89854239970,

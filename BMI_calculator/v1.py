@@ -1,8 +1,6 @@
 # Шапка
-print('+----------------+')
-print('| BMI calculator |')
-print('+------- by ШелЛ +')
-print()
+name_of_programm = 'BMI calculator'
+print('+', '-'*(len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-'*(len(name_of_programm)-8), 'by ШелЛ +\n')
 
 # Ввод исходных данных
 age = int(input('Enter the age (y.o.): '))
