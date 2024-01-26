@@ -65,7 +65,6 @@ while True:
                 print('\nOk. Contact {name} was deleted from phonebook.'.format(name=name))
             else:
                 print('\nCanceled.')
-                break
         else:
             print('\n{name} does not exist.'.format(name=name))
 
@@ -75,5 +74,3 @@ while True:
         print('~~~~~~~~~~~~')
         input()
         break
-
-del phonebook_dict[name]
