@@ -10,17 +10,17 @@ height = float(input('Enter the height (cm): '))
 weight = float(input('Enter the weight (kg): '))
 
 # Расчёт ИМТ по формуле
-BMI = round( (weight)/((height/100)**2) ,2)
+BMI = round((weight) / ((height / 100) ** 2), 2)
 
 # Вывод результата расчёта
 print('\nYour BMI = ', BMI, '\n')
 
 # Заключение
 if BMI < 18.5:
-  print('You are SHORTAGE')
+    print('You are SHORTAGE')
 elif 18.5 <= BMI < 25:
-  print('You are STANDART')
+    print('You are STANDART')
 elif 25 <= BMI < 30:
-  print('You are EXCESS')
+    print('You are EXCESS')
 else:
-  print('You are FATNESS')
+    print('You are FATNESS')
