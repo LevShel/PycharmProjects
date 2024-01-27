@@ -39,10 +39,17 @@ while True:
     if command == 'C':
         name = input('\nEnter name: ')
         if name in phonebook_dict:
-            print('\n{name}'.format(name=name), phonebook_dict[name])
-            phone = input('New phone number: ')
-            phonebook_dict[name] = phone
-            print('\nOk. New phone number {phone} for {name} was added in phonebook.'.format(name=name, phone=phone))
+            print('What change in {name}'.format(name=name), phonebook_dict[name], ' ?')
+            answer = input('Press N for update name or T for update telephone number: ').upper()
+            if answer == 'N':
+                new_name = input('Enter new name: ')
+                phonebook_dict[new_name] = phonebook_dict.pop(name)
+                print('\nOk. Contact {name} was renamed to {new_name}.'.format(name=name, new_name=new_name))
+            else:
+                print('\n{name}'.format(name=name), phonebook_dict[name])
+                phone = input('New phone number: ')
+                phonebook_dict[name] = phone
+                print('\nOk. New phone number {phone} for {name} was added in phonebook.'.format(name=name, phone=phone))
         else:
             print('\n{name} does not exist.'.format(name=name))
 
