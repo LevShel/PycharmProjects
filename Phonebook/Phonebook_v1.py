@@ -49,7 +49,7 @@ while True:
 # Отображение всех контактов
     if command == 'V':
         print('\nContacts in phonebook:')
-        for contact in phonebook_dict:
+        for contact in sorted(phonebook_dict.keys()):
             print(contact, end=' ')
             print(phonebook_dict[contact])
 
