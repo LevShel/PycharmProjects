@@ -14,4 +14,4 @@ for month in range(12):
     salary = float(input(f'{i} month salary: '))
     total_salary += salary
 middle_salary = total_salary / i
-print(middle_salary = , round(middle_salary, 2))
+print('middle_salary = ', round(middle_salary, 2))
