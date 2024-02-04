@@ -16,16 +16,17 @@
 
 nums = int(input('Enter num of nums: '))
 
-seq = []
 counter = 0
 
 for i in range(nums):
     num = int(input('Enter num: '))
-    seq.append(num)
-
-for num in seq:
-    for i in range(int(num)):
-        if num % i != 0:
+    if num > 1:
+        is_prime = True
+        for j in range(2, int(num ** 0.5) + 1):
+            if num % j == 0:
+                is_prime = False
+                break
+        if is_prime:
             counter += 1
 
-print(counter)
+print('There are ', counter, 'prime nums.')
