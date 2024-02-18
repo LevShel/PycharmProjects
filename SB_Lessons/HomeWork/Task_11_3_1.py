@@ -13,3 +13,9 @@
 # Это 2.0 CR
 # Можно купить кораблей: 4
 
+# 1 credit = 2200 chatl
+chatl = int(input('Сколько чатлов? '))
+credit = chatl/2200
+ships = int(credit) * 2
+print(f'{chatl} chatl = {credit} CR')
+print(f'Можно купить кораблей: {ships}')
