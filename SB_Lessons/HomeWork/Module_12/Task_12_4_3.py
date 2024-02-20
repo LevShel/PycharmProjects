@@ -30,7 +30,8 @@ def distance():
 
 
 choice = input('N: Navigate\n'
-               'D: Distance\n').upper()
+               'D: Distance\n'
+               '>: ').upper()
 if choice == 'N':
     navigate()
 if choice == 'D':
