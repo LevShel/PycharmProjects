@@ -15,7 +15,7 @@ def navigate():
     x2 = int(input('x = '))
     y2 = int(input('y = '))
     c = math.sqrt((x2**2)+(y2**2))
-    print(c)
+    print('\n', c)
 
 
 def distance():
@@ -26,7 +26,7 @@ def distance():
     x2 = int(input('x = '))
     y2 = int(input('y = '))
     c = math.sqrt(((x2-x1)**2)+((y2-y1)**2))
-    print(c)
+    print('\n', c)
 
 
 choice = input('N: Navigate\n'
