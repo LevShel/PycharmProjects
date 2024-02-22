@@ -1,34 +1,15 @@
-# Задача 7. Недоделка
-# Что нужно сделать
-# Вы пришли на работу в компанию по разработке игр, целевая аудитория —
-# дети и их родители. У предыдущего программиста было задание сделать две игры
-# в одном приложении, чтобы пользователь мог выбирать одну из них. Однако программист,
-# на место которого вы пришли, перед увольнением не успел выполнить эту задачу
-# и оставил только небольшой шаблон проекта. Используя этот шаблон, реализуйте игры «Камень,
-# ножницы, бумага» и «Угадай число».
-# Правила игры «Камень, ножницы, бумага»: программа запрашивает у пользователя строку
-# и выводит, победил он или проиграл. Камень бьёт ножницы, ножницы режут бумагу,
-# бумага кроет камень.
-# Правила игры «Угадай число»: программа запрашивает у пользователя число до тех пор,
-# пока он не отгадает загаданное.
-# def rock_paper_scissors():
-#   # Здесь будет игра «Камень, ножницы, бумага»
-# def guess_the_number():
-#   # Здесь будет игра «Угадай число»
-# def mainMenu():
-#   # Здесь главное меню игры
-# mainMenu():
-#   pass
-
 import random
 import time
 import os
 
 
 def rock_paper_scissors():  # игра "камень/ножницы/бумага"
+    # Шапка
     name_of_programm = 'Игра "Камень, ножницы, бумага..."'
     print('+', '-' * (len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-' * (len(name_of_programm) - 8),
           'by ШелЛ +\n')
+    print('Для выхода из игры введите "стоп".')
+    # Игра
     while True:
         # comp_score = 0
         # user_score = 0
@@ -77,28 +58,35 @@ def rock_paper_scissors():  # игра "камень/ножницы/бумага
 
 
 def guess_the_number():  # игра "угадай число"
+    # Шапка
     name_of_programm = 'Игра "Угадай число!"'
     print('+', '-' * (len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-' * (len(name_of_programm) - 8),
           'by ШелЛ +\n')
+    print('Для выхода из игры введите "0".')
+    # Игра
     while True:
         start_num = random.randint(1, 10)
         end_num = random.randint(11, 20)
         hidden_num = random.randint(start_num, end_num)
-        print(f'Загадано число в диапазоне от {start_num} до {end_num}...')
+        print(f'\nЗагадано число в диапазоне от {start_num} до {end_num}...')
         guess = int(input('Угадывай: '))
-        while hidden_num != guess:
-            print('Не угадал!')
-            guess = int(input('Попробуй ещё раз: '))
-            if guess == 0:
-                print('Игра завершена!')
-                break
-        print('     Угадал!')
-        # exit()
-        print('Игра завершена!')
-        break
+        if guess == 0:
+            print('Игра завершена!')
+            break
+        else:
+            while hidden_num != guess:
+                print('Не угадал!')
+                guess = int(input('Попробуй ещё раз: '))
+                if guess == 0:
+                    print('Игра завершена!')
+                    break
+            print('     Угадал!')
+            # exit()
+            print('Игра завершена!')
+            break
 
 
-def main_menu():    # главное меню
+def main_menu():  # главное меню
     while True:
         print('\nВыбери игру:\n'
               '1. "Камень, ножницы, бумага...".\n'
@@ -114,7 +102,7 @@ def main_menu():    # главное меню
 
 
 # Шапка программы
-name_of_programm = 'Мини-игры'
+name_of_programm = 'М И Н И - И Г Р Ы'
 print('+', '-' * (len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-' * (len(name_of_programm) - 8),
       'by ШелЛ +\n')
 
