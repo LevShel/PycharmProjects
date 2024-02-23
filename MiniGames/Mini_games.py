@@ -10,6 +10,8 @@ def rock_paper_scissors():  # игра "камень/ножницы/бумага
           'by ШелЛ +\n')
     print('Для выхода из игры введите "стоп".')
     # Игра
+    comp_score = 0
+    user_score = 0
     while True:
         # comp_score = 0
         # user_score = 0
@@ -33,20 +35,34 @@ def rock_paper_scissors():  # игра "камень/ножницы/бумага
             print('         ', comp_step)
             if comp_step == user_step:
                 print('Ничья!')
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif comp_step == 'камень' and user_step == 'ножницы':
                 print('Комп выиграл!')
+                comp_score += 1
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif comp_step == 'камень' and user_step == 'бумага':
                 print('Ты выиграл!')
+                user_score +=1
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif comp_step == 'ножницы' and user_step == 'камень':
                 print('Ты выиграл!')
+                user_score += 1
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif comp_step == 'ножницы' and user_step == 'бумага':
                 print('Комп выиграл!')
+                comp_score += 1
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif comp_step == 'бумага' and user_step == 'камень':
                 print('Комп выиграл!')
+                comp_score += 1
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif comp_step == 'бумага' and user_step == 'ножницы':
                 print('Ты выиграл!')
+                user_score += 1
+                print(f'comp [{comp_score}] - [{user_score}] user')
             elif user_step == 'стоп':
                 print('Игра завершена!')
+                print(f'comp [{comp_score}] - [{user_score}] user')
                 # exit()
                 break
             else:
