@@ -22,16 +22,21 @@
 # Введите вес нового контейнера: 162
 # Номер, который получит новый контейнер: 3
 
+def position(new_weight, weights):
+    position_number = 1
+    for weight in weights:
+        if new_weight <= weight:
+            position_number = weights.index(weight) + 2
+    return position_number
+
+
 containers = []
-number = 0
 n = int(input('Number of containers: '))
-for i in range(1, n+1):
+for i in range(1, n + 1):
     container = int(input(f'Enter weight of {i} container: '))
     containers.append(container)
 x = int(input('Enter weight of new container: '))
-for j in containers:
-    if x < j:
-        number = containers.index(j) + 2
-    elif x == j:
-        number = containers.index(j) + 3
+if x > 200 or any(container > 200 for container in containers):
+    print('Error! All numbers must be no more than 200.')
+number = position(x, containers)
 print(f'The number that the new container will receive: {number}')
