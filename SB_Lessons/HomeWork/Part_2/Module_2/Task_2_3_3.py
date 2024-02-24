@@ -24,16 +24,20 @@
 searching_words = []
 text = []
 summ = 0
+print('\nИскомые слова')
 for i in range(3):
     word = input(f'Введите {i+1} слово: ')
     searching_words.append(word)
+print('\nТекст по словам')
 while True:
     text_word = input('Слово из текста: ')
-    text.append(text_word)
     if text_word == 'end':
         break
+    text.append(text_word)
+print('\nПодсчёт слов в тексте')
 for j in searching_words:
     for k in text:
-        if searching_words[j] == text[k]:
+        if j == k:
             summ += 1
-print(summ)
+    print(f'{j}: {summ}')
+    summ = 0
