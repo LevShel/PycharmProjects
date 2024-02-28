@@ -23,8 +23,11 @@ shop = [['каретка', 1200],
         ['седло', 2700]]
 
 part = input('Name of part: ')
-# num = int(input('Num of parts: '))
-
+price = 0
+num_of_parts = 0
 for i in shop:
     if part in i:
-        print(i)
+        price += (i[1])
+        num_of_parts += 1
+print(f'Num of parts: {num_of_parts}')
+print(f'Total price: {price}')
