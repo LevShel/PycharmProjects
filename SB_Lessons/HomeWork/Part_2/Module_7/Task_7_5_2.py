@@ -19,4 +19,3 @@ while True:
               f'{dict_phonebook[tuple_contact]}')
     else:
         dict_phonebook[tuple_contact] = phone
-        print(dict_phonebook)
