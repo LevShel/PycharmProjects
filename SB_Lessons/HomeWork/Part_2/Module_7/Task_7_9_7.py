@@ -28,5 +28,10 @@ zip_list = [(i, j) for
             idx_tpl, j in enumerate(tuple_original) for
             idx_str, i in enumerate(string_original) if
             idx_str == idx_tpl]
+zip_tuple = ((i, j) for
+            idx_tpl, j in enumerate(tuple_original) for
+            idx_str, i in enumerate(string_original) if
+            idx_str == idx_tpl)
 print('\n'.join(map(str, zip_list)))
+print(zip_tuple)
 
