@@ -155,8 +155,14 @@ def end_day(i):
     return i
 
 
-new_man = Human('Lev')
+boy = Human('Lev')
+girl = Human('Girlfriend')
+flat = House()
+boy.house = flat
+girl.house = flat
+
 day = 1
-while new_man.live:
-    day = new_day(new_man, day)
+while (boy.live and girl.live) or day == 366:
+    day = new_day(boy, day)
+    day = new_day(girl, day)
     day = end_day(day)
