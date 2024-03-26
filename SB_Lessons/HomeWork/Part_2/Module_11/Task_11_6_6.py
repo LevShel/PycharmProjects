@@ -79,13 +79,17 @@ class Player:
         self.symbol = input('Enter your marker-symbol: ')
 
     def make_turn(self, board):
-        turn = input('Choose cell: ').lower()
-        cell = board.dict_board.get(turn)
-        if cell and not cell.occupy:
-            cell.symbol = self.symbol
-            cell.occupy = True
-        else:
-            print('Invalid cell or cell already occupied.')
+        while True:
+            turn = input('Choose cell: ').lower()
+            cell = board.dict_board.get(turn)
+
+            if cell and not cell.occupy:
+                cell.symbol = self.symbol
+                cell.occupy = True
+                return False
+            else:
+                print('Invalid cell or cell already occupied.\n'
+                      'Please, choose other cell.')
 
 
 field = Board()
