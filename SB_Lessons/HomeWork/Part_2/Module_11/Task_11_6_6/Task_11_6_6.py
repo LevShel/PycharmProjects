@@ -43,7 +43,7 @@
 #     # Основной метод запуска игр. В цикле запускает игры, запрашивая после каждой
 #     игры, хотят ли игроки продолжать играть. После каждой игры выводится текущий
 #     счёт игроков.
-
+import os
 import random
 import time
 
@@ -87,7 +87,7 @@ class Player:
 
     def make_turn(self, board):
         while True:
-            turn = input('Choose cell: ').lower()
+            turn = input(f'{self.nickname}, please, choose cell: ').lower()
             cell = board.dict_board.get(turn)
             if cell and not cell.occupy:
                 cell.symbol = self.symbol
@@ -115,9 +115,6 @@ class Computer:
                 cell.symbol = self.symbol
                 cell.occupy = True
                 return False
-            else:
-                print('Invalid cell or cell already occupied.\n'
-                      'Please, choose other cell.')
 
 
 class Game:
@@ -140,9 +137,13 @@ class Game:
             print('Wrong type. Please enter "1" or "2".')
 
     def start_game(self):
+        os.system('cls')
         self.field.draw_board()
         self.player_1.make_turn(self.field)
+        os.system('cls')
         self.field.draw_board()
+        if isinstance(self.player_2, Computer):
+            print('\nComputer is generating his turn...')
         self.player_2.make_turn(self.field)
 
     # def score_table(self):
@@ -150,4 +151,5 @@ class Game:
 
 new_game = Game()
 while True:
+    os.system('cls')
     new_game.start_game()
