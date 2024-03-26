@@ -44,6 +44,10 @@
 #     игры, хотят ли игроки продолжать играть. После каждой игры выводится текущий
 #     счёт игроков.
 
+import random
+import time
+
+
 class Cell:
     def __init__(self, symbol=' '):
         self.symbol = symbol
@@ -62,13 +66,16 @@ class Board:
         print(' ' * 5 + '1' + ' ' * 3 + '2' + ' ' * 3 + '3')
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('A' + ' ' * 2 + '| {a1} | {a2} | {a3} |'
-              .format(a1=self.dict_board['a1'].symbol, a2=self.dict_board['a2'].symbol, a3=self.dict_board['a3'].symbol))
+              .format(a1=self.dict_board['a1'].symbol, a2=self.dict_board['a2'].symbol,
+                      a3=self.dict_board['a3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('B' + ' ' * 2 + '| {b1} | {b2} | {b3} |'
-              .format(b1=self.dict_board['b1'].symbol, b2=self.dict_board['b2'].symbol, b3=self.dict_board['b3'].symbol))
+              .format(b1=self.dict_board['b1'].symbol, b2=self.dict_board['b2'].symbol,
+                      b3=self.dict_board['b3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('C' + ' ' * 2 + '| {c1} | {c2} | {c3} |'
-              .format(c1=self.dict_board['c1'].symbol, c2=self.dict_board['c2'].symbol, c3=self.dict_board['c3'].symbol))
+              .format(c1=self.dict_board['c1'].symbol, c2=self.dict_board['c2'].symbol,
+                      c3=self.dict_board['c3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
 
 
@@ -82,7 +89,6 @@ class Player:
         while True:
             turn = input('Choose cell: ').lower()
             cell = board.dict_board.get(turn)
-
             if cell and not cell.occupy:
                 cell.symbol = self.symbol
                 cell.occupy = True
@@ -92,119 +98,56 @@ class Player:
                       'Please, choose other cell.')
 
 
-field = Board()
-field.draw_board()
-player_1 = Player()
-player_2 = Player()
+class Computer:
+    def __init__(self):
+        self.nickname = 'Computer'
+        self.wins = 0
+        self.symbol = '\u265E'
+
+    def make_turn(self, board):
+        while True:
+            turn = random.choice(['a1', 'a2', 'a3',
+                                  'b1', 'b2', 'b3',
+                                  'c1', 'c2', 'c3'])
+            time.sleep(2)
+            cell = board.dict_board.get(turn)
+            if cell and not cell.occupy:
+                cell.symbol = self.symbol
+                cell.occupy = True
+                return False
+            else:
+                print('Invalid cell or cell already occupied.\n'
+                      'Please, choose other cell.')
+
+
+class Game:
+    def __init__(self):
+        players = input('Choose type of game:\n'
+                        '1. Player VS Computer\n'
+                        '2. Player VS Player\n'
+                        '>: ')
+        if players == '1':
+            self.player_1 = Player()
+            self.player_2 = Computer()
+            self.field = Board()
+        elif players == '2':
+            print('Player # 1:')
+            self.player_1 = Player()
+            print('Player # 2:')
+            self.player_2 = Player()
+            self.field = Board()
+        else:
+            print('Wrong type. Please enter "1" or "2".')
+
+    def start_game(self):
+        self.field.draw_board()
+        self.player_1.make_turn(self.field)
+        self.field.draw_board()
+        self.player_2.make_turn(self.field)
+
+    # def score_table(self):
+
+
+new_game = Game()
 while True:
-    player_1.make_turn(field)
-    field.draw_board()
-
-    player_2.make_turn(field)
-    field.draw_board()
-
-#           CHAT GPT:
-# class Cell:
-#     def __init__(self, number):
-#         self.number = number  # Номер клетки
-#         self.symbol = " "  # Символ клетки (" ", "X", "O")
-#
-#     def occupy(self, symbol):
-#         if self.symbol == " ":
-#             self.symbol = symbol
-#             return True
-#         else:
-#             return False
-#
-#
-# class Board:
-#     def __init__(self):
-#         self.cells = [Cell(i) for i in range(1, 10)]  # Создание клеток
-#
-#     def display(self):
-#         print()
-#         print(' ' * 4 + 'A' + ' ' * 3 + 'B' + ' ' * 3 + 'C')
-#         print(' ' * 2 + '+' + "-" * 11 + '+')
-#         j = 1
-#         for i in range(0, 9, 3):
-#             print(f'{j} |', end='')
-#             print(f' {self.cells[i].symbol} | {self.cells[i + 1].symbol} | {self.cells[i + 2].symbol} |')
-#             j += 1
-#             if i < 7:
-#                 print(' ' * 2 + '+' + "-" * 11 + '+')
-#         print()
-#
-#     def check_winner(self, symbol):
-#         # Проверка строк
-#         for i in range(0, 9, 3):
-#             if self.cells[i].symbol == self.cells[i + 1].symbol == self.cells[i + 2].symbol == symbol:
-#                 return True
-#         # Проверка столбцов
-#         for i in range(3):
-#             if self.cells[i].symbol == self.cells[i + 3].symbol == self.cells[i + 6].symbol == symbol:
-#                 return True
-#         # Проверка диагоналей
-#         if self.cells[0].symbol == self.cells[4].symbol == self.cells[8].symbol == symbol:
-#             return True
-#         if self.cells[2].symbol == self.cells[4].symbol == self.cells[6].symbol == symbol:
-#             return True
-#         return False
-#
-#
-# class Player:
-#     def __init__(self, name):
-#         self.name = name
-#         self.wins = 0
-#
-#     def make_move(self, board):
-#         while True:
-#             move = input(f"{self.name}, enter cell number (1-9): ")
-#             if move.isdigit() and 1 <= int(move) <= 9:
-#                 cell_number = int(move)
-#                 if board.cells[cell_number - 1].occupy("X"):
-#                     return cell_number
-#                 else:
-#                     print("Cell is already occupied. Try again.")
-#             else:
-#                 print("Invalid input. Please enter a number between 1 and 9.")
-#
-#
-# class Game:
-#     def __init__(self, player1, player2):
-#         self.board = Board()
-#         self.player1 = player1
-#         self.player2 = player2
-#
-#     def start_turn(self, player, symbol):
-#         self.board.display()
-#         print(f"{player.name}'s turn ({symbol}):")
-#         cell_number = player.make_move(self.board)
-#         if self.board.check_winner(symbol):
-#             print(f"{player.name} wins!")
-#             player.wins += 1
-#             return True
-#         return False
-#
-#     def start_game(self):
-#         player_symbols = {"X": self.player1, "O": self.player2}
-#         while True:
-#             for symbol, player in player_symbols.items():
-#                 if self.start_turn(player, symbol):
-#                     return
-#                 if all(cell.symbol != " " for cell in self.board.cells):
-#                     print("It's a tie!")
-#                     return
-#                 print()
-#             print(f"Score - {self.player1.name}: {self.player1.wins}, {self.player2.name}: {self.player2.wins}")
-#             print("=" * 20)
-#             play_again = input("Do you want to play again? (yes/no): ")
-#             if play_again.lower() != "yes":
-#                 return
-#
-#
-# player1_name = input("Enter player 1 name: ")
-# player2_name = input("Enter player 2 name: ")
-# player1 = Player(player1_name)
-# player2 = Player(player2_name)
-# game = Game(player1, player2)
-# game.start_game()
+    new_game.start_game()
