@@ -45,8 +45,7 @@
 #     счёт игроков.
 
 class Cell:
-    def __init__(self, number, symbol=' '):
-        self.number = number
+    def __init__(self, symbol=' '):
         self.symbol = symbol
         self.occupy = False
         if self.symbol != ' ':
@@ -55,27 +54,21 @@ class Cell:
 
 class Board:
     def __init__(self):
-        self.a1 = Cell('a1')
-        self.a2 = Cell('a2')
-        self.a3 = Cell('a3')
-        self.b1 = Cell('b1')
-        self.b2 = Cell('b2')
-        self.b3 = Cell('b3')
-        self.c1 = Cell('c1')
-        self.c2 = Cell('c2')
-        self.c3 = Cell('c3')
+        self.dict_board = {'a1': Cell(), 'a2': Cell(), 'a3': Cell(),
+                           'b1': Cell(), 'b2': Cell(), 'b3': Cell(),
+                           'c1': Cell(), 'c2': Cell(), 'c3': Cell()}
 
     def draw_board(self):
         print(' ' * 5 + '1' + ' ' * 3 + '2' + ' ' * 3 + '3')
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('A' + ' ' * 2 + '| {a1} | {a2} | {a3} |'
-              .format(a1=self.a1.symbol, a2=self.a2.symbol, a3=self.a3.symbol))
+              .format(a1=self.dict_board['a1'].symbol, a2=self.dict_board['a2'].symbol, a3=self.dict_board['a3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('B' + ' ' * 2 + '| {b1} | {b2} | {b3} |'
-              .format(b1=self.b1.symbol, b2=self.b2.symbol, b3=self.b3.symbol))
+              .format(b1=self.dict_board['b1'].symbol, b2=self.dict_board['b2'].symbol, b3=self.dict_board['b3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('C' + ' ' * 2 + '| {c1} | {c2} | {c3} |'
-              .format(c1=self.c1.symbol, c2=self.c2.symbol, c3=self.c3.symbol))
+              .format(c1=self.dict_board['c1'].symbol, c2=self.dict_board['c2'].symbol, c3=self.dict_board['c3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
 
 
@@ -85,16 +78,26 @@ class Player:
         self.wins = 0
         self.symbol = input('Enter your marker-symbol: ')
 
-    def make_turn(self):
+    def make_turn(self, board):
         turn = input('Choose cell: ').lower()
-        if turn == 'a1':
-            cell.a1.symbol = self.symbol
-
-
+        cell = board.dict_board.get(turn)
+        if cell and not cell.occupy:
+            cell.symbol = self.symbol
+            cell.occupy = True
+        else:
+            print('Invalid cell or cell already occupied.')
 
 
 field = Board()
 field.draw_board()
+player_1 = Player()
+player_2 = Player()
+while True:
+    player_1.make_turn(field)
+    field.draw_board()
+
+    player_2.make_turn(field)
+    field.draw_board()
 
 #           CHAT GPT:
 # class Cell:
