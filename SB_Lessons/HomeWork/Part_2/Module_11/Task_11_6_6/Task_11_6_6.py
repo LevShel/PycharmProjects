@@ -43,6 +43,7 @@
 #     # Основной метод запуска игр. В цикле запускает игры, запрашивая после каждой
 #     игры, хотят ли игроки продолжать играть. После каждой игры выводится текущий
 #     счёт игроков.
+
 import os
 import random
 import time
@@ -102,7 +103,7 @@ class Computer:
     def __init__(self):
         self.nickname = 'Computer'
         self.wins = 0
-        self.symbol = '\u265E'
+        self.symbol = '@'  # '\u265E'
 
     def make_turn(self, board):
         while True:
@@ -142,14 +143,47 @@ class Game:
         self.player_1.make_turn(self.field)
         os.system('cls')
         self.field.draw_board()
+        check_win(self.field, self.player_1)
         if isinstance(self.player_2, Computer):
             print('\nComputer is generating his turn...')
         self.player_2.make_turn(self.field)
+        check_win(self.field, self.player_2)
 
-    # def score_table(self):
+    def score_table(self):
+        print('+' + '-' * (len(self.player_1.nickname) + len(self.player_2.nickname) + 13) + '+')
+        print(f'| {self.player_1.nickname} [{self.player_1.wins}] - [{self.player_2.wins}] {self.player_2.nickname} |')
+        print('+' + '-' * (len(self.player_1.nickname) + len(self.player_2.nickname) + 13) + '+')
 
 
-new_game = Game()
-while True:
-    os.system('cls')
-    new_game.start_game()
+def header():
+    name_of_programm = 'Tic-tac-toe game'
+    print('+', '-' * (len(name_of_programm)), '+\n|', name_of_programm, '|\n+', '-' * (len(name_of_programm) - 8),
+          'by ШелЛ +\n')
+
+
+def start_new_game():
+    new_game = Game()
+    while True:
+        os.system('cls')
+        new_game.score_table()
+        new_game.start_game()
+
+
+def check_win(board, player):
+    winning_combinations = [['a1', 'a2', 'a3'],
+                            ['b1', 'b2', 'b3'],
+                            ['c1', 'c2', 'c3'],
+                            ['a1', 'b1', 'c1'],
+                            ['a2', 'b2', 'c2'],
+                            ['a3', 'b3', 'c3'],
+                            ['a1', 'b2', 'c3'],
+                            ['a3', 'b2', 'c1']]
+    for combination in winning_combinations:
+        if all(board.dict_board[cell].symbol == player.symbol for cell in combination):
+            player.wins += 1
+            return True
+    return False
+
+
+header()
+start_new_game()
