@@ -138,7 +138,7 @@ class Game:
             print('Wrong type. Please enter "1" or "2".')
 
     def start_game(self):
-        os.system('cls')
+        # os.system('cls')
         self.field.draw_board()
         self.player_1.make_turn(self.field)
         os.system('cls')
@@ -178,10 +178,21 @@ def check_win(board, player):
                             ['a3', 'b3', 'c3'],
                             ['a1', 'b2', 'c3'],
                             ['a3', 'b2', 'c1']]
+    nobody_wins = [[' ', ' ', ' '],
+                    [' ', ' ', ' '],
+                    [' ', ' ', ' '],
+                    [' ', ' ', ' '],
+                    [' ', ' ', ' ']]
     for combination in winning_combinations:
         if all(board.dict_board[cell].symbol == player.symbol for cell in combination):
             player.wins += 1
+            print(f'{player.nickname} wins this part!')
+            start_new_game()
             return True
+    if all(board.dict_board[cell].symbol != ' ' for cell in board.dict_board):
+        print(f'Drawn game!!')
+        start_new_game()
+        return True
     return False
 
 
