@@ -43,7 +43,6 @@
 #     # Основной метод запуска игр. В цикле запускает игры, запрашивая после каждой
 #     игры, хотят ли игроки продолжать играть. После каждой игры выводится текущий
 #     счёт игроков.
-
 import os
 import random
 import time
@@ -78,6 +77,11 @@ class Board:
               .format(c1=self.dict_board['c1'].symbol, c2=self.dict_board['c2'].symbol,
                       c3=self.dict_board['c3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
+
+    def clear_board(self):
+        for cell in self.dict_board.values():
+            cell.symbol = ' '
+            cell.occupy = False
 
 
 class Player:
@@ -120,6 +124,12 @@ class Computer:
 
 class Game:
     def __init__(self):
+        self.player_1 = None
+        self.player_2 = None
+        self.field = None
+        self.winner = None
+
+    def setup_game(self):
         players = input('Choose type of game:\n'
                         '1. Player VS Computer\n'
                         '2. Player VS Player\n'
@@ -136,23 +146,69 @@ class Game:
             self.field = Board()
         else:
             print('Wrong type. Please enter "1" or "2".')
+            return False  # Return False if setup failed
+        return True  # Return True if setup succeeded
 
     def start_game(self):
-        # os.system('cls')
+        if not self.setup_game():  # Check if setup_game() fails
+            return
+        while True:
+            os.system('cls')
+            self.start_round()
+            self.score_table()
+            self.update_score()
+
+    def start_round(self):
         self.field.draw_board()
         self.player_1.make_turn(self.field)
-        os.system('cls')
         self.field.draw_board()
-        check_win(self.field, self.player_1)
+        if self.check_win(self.field, self.player_1):
+            return
+        if self.check_draw(self.field):
+            return
         if isinstance(self.player_2, Computer):
             print('\nComputer is generating his turn...')
-        self.player_2.make_turn(self.field)
-        check_win(self.field, self.player_2)
+            self.player_2.make_turn(self.field)
+            if self.check_win(self.field, self.player_2):
+                return
+            if self.check_draw(self.field):
+                return
 
     def score_table(self):
         print('+' + '-' * (len(self.player_1.nickname) + len(self.player_2.nickname) + 13) + '+')
         print(f'| {self.player_1.nickname} [{self.player_1.wins}] - [{self.player_2.wins}] {self.player_2.nickname} |')
         print('+' + '-' * (len(self.player_1.nickname) + len(self.player_2.nickname) + 13) + '+')
+
+    def update_score(self):
+        if self.winner:
+            self.winner.wins += 1
+            self.field.clear_board()
+            self.winner = None
+
+    def check_win(self, board, player):
+        winning_combinations = [['a1', 'a2', 'a3'],
+                                ['b1', 'b2', 'b3'],
+                                ['c1', 'c2', 'c3'],
+                                ['a1', 'b1', 'c1'],
+                                ['a2', 'b2', 'c2'],
+                                ['a3', 'b3', 'c3'],
+                                ['a1', 'b2', 'c3'],
+                                ['a3', 'b2', 'c1']]
+        for combination in winning_combinations:
+            if all(board.dict_board[cell].symbol == player.symbol for cell in combination):
+                self.winner = player
+                print(f'{player.nickname} wins this round!')
+                self.update_score()
+                return True
+        return False
+
+    def check_draw(self, board):
+        for cell in board.dict_board.values():
+            if cell.symbol == ' ':
+                return False
+        print("It's a draw!")
+        self.update_score()
+        return True
 
 
 def header():
@@ -163,37 +219,9 @@ def header():
 
 def start_new_game():
     new_game = Game()
-    while True:
-        os.system('cls')
-        new_game.score_table()
+    if new_game:
         new_game.start_game()
 
-
-def check_win(board, player):
-    winning_combinations = [['a1', 'a2', 'a3'],
-                            ['b1', 'b2', 'b3'],
-                            ['c1', 'c2', 'c3'],
-                            ['a1', 'b1', 'c1'],
-                            ['a2', 'b2', 'c2'],
-                            ['a3', 'b3', 'c3'],
-                            ['a1', 'b2', 'c3'],
-                            ['a3', 'b2', 'c1']]
-    nobody_wins = [[' ', ' ', ' '],
-                    [' ', ' ', ' '],
-                    [' ', ' ', ' '],
-                    [' ', ' ', ' '],
-                    [' ', ' ', ' ']]
-    for combination in winning_combinations:
-        if all(board.dict_board[cell].symbol == player.symbol for cell in combination):
-            player.wins += 1
-            print(f'{player.nickname} wins this part!')
-            start_new_game()
-            return True
-    if all(board.dict_board[cell].symbol != ' ' for cell in board.dict_board):
-        print(f'Drawn game!!')
-        start_new_game()
-        return True
-    return False
 
 
 header()
