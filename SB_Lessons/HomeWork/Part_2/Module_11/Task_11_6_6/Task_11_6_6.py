@@ -43,6 +43,7 @@
 #     # Основной метод запуска игр. В цикле запускает игры, запрашивая после каждой
 #     игры, хотят ли игроки продолжать играть. После каждой игры выводится текущий
 #     счёт игроков.
+
 import os
 import random
 import time
@@ -93,6 +94,10 @@ class Player:
     def make_turn(self, board):
         while True:
             turn = input(f'{self.nickname}, please, choose cell: ').lower()
+            if turn == 'exit':
+                print('You finished the Game!')
+                input()
+                exit()
             cell = board.dict_board.get(turn)
             if cell and not cell.occupy:
                 cell.symbol = self.symbol
@@ -128,39 +133,37 @@ class Game:
         self.player_2 = None
         self.field = None
         self.winner = None
+        self.import_os = os
+        self.import_time = time
 
     def setup_game(self):
-        players = input('Choose type of game:\n'
-                        '1. Player VS Computer\n'
-                        '2. Player VS Player\n'
-                        '>: ')
-        if players == '1':
-            self.player_1 = Player()
-            self.player_2 = Computer()
-            self.field = Board()
-        elif players == '2':
-            print('Player # 1:')
-            self.player_1 = Player()
-            print('Player # 2:')
-            self.player_2 = Player()
-            self.field = Board()
-        else:
-            print('Wrong type. Please enter "1" or "2".')
-            return False  # Return False if setup failed
-        return True  # Return True if setup succeeded
-
-    def start_game(self):
-        if not self.setup_game():  # Check if setup_game() fails
-            return
         while True:
-            os.system('cls')
-            self.start_round()
-            self.score_table()
-            self.update_score()
+            players = input('Choose type of game:\n'
+                            '1. Player VS Computer\n'
+                            '2. Player VS Player\n'
+                            '>: ')
+            if players == '1':
+                self.player_1 = Player()
+                self.player_2 = Computer()
+                self.field = Board()
+                return True
+            elif players == '2':
+                print('Player # 1:')
+                self.player_1 = Player()
+                print('Player # 2:')
+                self.player_2 = Player()
+                self.field = Board()
+                return True
+            else:
+                print('Wrong type. Please enter "1" or "2".')
+                continue
 
     def start_round(self):
         self.field.draw_board()
         self.player_1.make_turn(self.field)
+        self.import_os.system('cls')
+        header()
+        self.score_table()
         self.field.draw_board()
         if self.check_win(self.field, self.player_1):
             return
@@ -168,11 +171,15 @@ class Game:
             return
         if isinstance(self.player_2, Computer):
             print('\nComputer is generating his turn...')
-            self.player_2.make_turn(self.field)
-            if self.check_win(self.field, self.player_2):
-                return
-            if self.check_draw(self.field):
-                return
+        self.player_2.make_turn(self.field)
+        self.import_os.system('cls')
+        header()
+        self.score_table()
+        self.field.draw_board()
+        if self.check_win(self.field, self.player_2):
+            return
+        if self.check_draw(self.field):
+            return
 
     def score_table(self):
         print('+' + '-' * (len(self.player_1.nickname) + len(self.player_2.nickname) + 13) + '+')
@@ -197,16 +204,28 @@ class Game:
         for combination in winning_combinations:
             if all(board.dict_board[cell].symbol == player.symbol for cell in combination):
                 self.winner = player
-                print(f'{player.nickname} wins this round!')
+                self.import_os.system('cls')
+                print(f'\n\n'
+                      f'    {player.nickname} wins this round!'
+                      f'\n'
+                      f'\n')
                 self.update_score()
+                self.score_table()
+                self.restart_game()
+                self.import_os.system('cls')
                 return True
         return False
+
+    def restart_game(self):
+        print(f'\n New round will starts in few seconds...')
+        self.import_time.sleep(3)
+        self.import_os.system('cls')
 
     def check_draw(self, board):
         for cell in board.dict_board.values():
             if cell.symbol == ' ':
                 return False
-        print("It's a draw!")
+        print('Drawing game!')
         self.update_score()
         return True
 
@@ -217,12 +236,20 @@ def header():
           'by ШелЛ +\n')
 
 
-def start_new_game():
-    new_game = Game()
-    if new_game:
-        new_game.start_game()
-
-
+header()
+new_game = Game()
+print('\n'
+      ' [ P R E S S ]\n'
+      ' [ E N T E R ]\n')
+input()
+os.system('cls')
 
 header()
-start_new_game()
+new_game.setup_game()
+os.system('cls')
+
+while True:
+    header()
+    new_game.score_table()
+    new_game.start_round()
+    os.system('cls')
