@@ -67,33 +67,33 @@ class Earth:
 
 
 class Storm:  # Water + Air
-    def __init__(self):
-        self.name = 'storm'
+    def __str__(self):
+        return 'storm'
 
 
 class Steam:  # Water + Fire
-    def __init__(self):
-        self.name = 'steam'
+    def __str__(self):
+        return 'steam'
 
 
 class Mud:  # Water + Earth
-    def __init__(self):
-        self.name = 'mud'
+    def __str__(self):
+        return 'mud'
 
 
 class Lightning:  # Air + Fire
-    def __init__(self):
-        self.name = 'lightning'
+    def __str__(self):
+        return 'lightning'
 
 
 class Dust:  # Air + Earth
-    def __init__(self):
-        self.name = 'dust'
+    def __str__(self):
+        return 'dust'
 
 
 class Lava:  # Fire + Earth
-    def __init__(self):
-        self.name = 'lava'
+    def __str__(self):
+        return 'lava'
 
 
 class Boy:
@@ -115,21 +115,21 @@ class Girl:
 
 
 class Love:  # Boy + Girl
-    def __init__(self):
-        self.name = 'love <3'
+    def __str__(self):
+        return 'love <3'
 
 
 class Pediki:
-    def __init__(self):
-        self.name = 'pediki'
+    def __str__(self):
+        return 'pediki'
 
 
 class LesbianLove:
-    def __init__(self):
-        self.name = 'lesbian love'
+    def __str__(self):
+        return 'lesbian love'
 
 
-fst = Boy()
-scnd = Girl()
-result = fst + scnd
-print(result.name)
+first_component = Water()
+second_component = Earth()
+print(first_component + second_component)
+
