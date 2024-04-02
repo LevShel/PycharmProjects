@@ -62,6 +62,13 @@ class Matrix:
             proizvedenie.append(new_row)
         return Matrix(self.rows, self.cols, proizvedenie)
 
+    def transpose(self):
+        t_matrix = [[None] * self.rows for _ in range(self.cols)]
+        for row in range(self.rows):
+            for col in range(self.cols):
+                t_matrix[col][row] = self.matrix[row][col]
+        return Matrix(rows=self.cols, cols=self.rows, data=t_matrix)
+
 
 # # # Создание экземпляров класса Matrix
 m1 = Matrix(2, 3, [[1, 2, 3], [4, 5, 6]])
@@ -78,14 +85,12 @@ m2.print_info()
 # 10    11    12
 
 print("Сложение матриц:")
-result = m1.__add__(m2)
-result.print_info()
+m1.__add__(m2).print_info()
 # 8    10    12
 # 14    16    18
 
 print("Вычитание матриц:")
-result = m1.__sub__(m2)
-result.print_info()
+m1.__sub__(m2).print_info()
 # -6    -6    -6
 # -6    -6    -6
 
@@ -97,13 +102,12 @@ m3.print_info()
 # 5    6
 
 print("Умножение матриц:")
-result = m1.__mul__(m3)
-result.print_info()
+m1.__mul__(m3).print_info()
 # 22    28
 # 49    64
 
-# print("Транспонирование матрицы 1:")
-# print(m1.transpose())
+print("Транспонирование матрицы 1:")
+m1.transpose().print_info()
 # 1    4
 # 2    5
 # 3    6
