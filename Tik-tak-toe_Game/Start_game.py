@@ -45,8 +45,8 @@
 #     счёт игроков.
 
 import os
-import random
 import time
+import random
 
 
 class Cell:
@@ -67,15 +67,18 @@ class Board:
         print(' ' * 5 + '1' + ' ' * 3 + '2' + ' ' * 3 + '3')
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('A' + ' ' * 2 + '| {a1} | {a2} | {a3} |'
-              .format(a1=self.dict_board['a1'].symbol, a2=self.dict_board['a2'].symbol,
+              .format(a1=self.dict_board['a1'].symbol,
+                      a2=self.dict_board['a2'].symbol,
                       a3=self.dict_board['a3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('B' + ' ' * 2 + '| {b1} | {b2} | {b3} |'
-              .format(b1=self.dict_board['b1'].symbol, b2=self.dict_board['b2'].symbol,
+              .format(b1=self.dict_board['b1'].symbol,
+                      b2=self.dict_board['b2'].symbol,
                       b3=self.dict_board['b3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
         print('C' + ' ' * 2 + '| {c1} | {c2} | {c3} |'
-              .format(c1=self.dict_board['c1'].symbol, c2=self.dict_board['c2'].symbol,
+              .format(c1=self.dict_board['c1'].symbol,
+                      c2=self.dict_board['c2'].symbol,
                       c3=self.dict_board['c3'].symbol))
         print(' ' * 3 + '+' + '-' * 11 + '+')
 
