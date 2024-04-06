@@ -25,9 +25,11 @@ class Person:
 
 
 misha = Person('Misha', 20)
-print(misha.get_count())
+print('get_count(): ', misha.get_count())
 tom = Person('Tom', 25)
-print(misha.get_count())
-print(tom.get_age())
+print('get_count(): ', misha.get_count())
+print('get_age(): ', tom.get_age())
 tom.set_age(30)
-print(tom.get_age())
+print('get_age(): ', tom.get_age())
+
+print('__str__():\n', misha.__str__())
