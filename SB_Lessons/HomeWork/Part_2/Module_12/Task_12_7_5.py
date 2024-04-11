@@ -41,6 +41,9 @@ class Task:
     def edit_task(self, position, new_text):
         self.task[position] = new_text
 
+    def get_tasks(self):
+        return self.task
+
 
 class TaskManager:
 
@@ -52,10 +55,11 @@ class TaskManager:
         self.task_list.append(task)
 
     def __str__(self):
-        task_list = ''
+        sorted_tasks = []
         for task in self.task_list:
-            task_list += str(task.task) + '\n'
-        return task_list
+            sorted_tasks.append(task.get_tasks())
+        # TODO настроить вывод каждой задачи в новой строке
+        return str(sorted(sorted_tasks, key=lambda x: list(x.keys())))
 
 
 manager = TaskManager()
