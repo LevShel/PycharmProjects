@@ -16,4 +16,32 @@
 # Нельзя было создавать объекты класса Shape.
 # Наследники класса Shape переопределяли его метод area, чтобы объекты этих классов можно было использовать.
 
-# TODO
+
+class __Shape:
+    def rectangle_square(self, a, b):
+        return print(a * b)
+
+    def any_square(self):
+        if isinstance(object, Rectangle):
+            return rectangle_square()
+    # TODO
+
+
+class Circle(__Shape):
+    # TODO
+    pass
+
+
+class Rectangle(__Shape):
+    def __init__(self):
+        super().__init__()
+    # TODO
+
+
+class Triangle(__Shape):
+    # TODO
+    pass
+
+
+qwerty = Rectangle()
+qwerty.rectangle_square(3, 4)
