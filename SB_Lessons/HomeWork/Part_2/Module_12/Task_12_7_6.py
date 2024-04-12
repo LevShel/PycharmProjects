@@ -61,9 +61,25 @@ class Triangle(__Shape):
         super().__init__(a=a, b=b, c=c, p=p)
 
 
-fig_1 = Rectangle(3, 4)
-fig_2 = Circle(5)
-fig_3 = Triangle(3, 4, 5)
-print(fig_1.area())
-print(fig_2.area())
-print(fig_3.area())
+choice = int(input('Choose figure:\n'
+                   '\t1. Circle\n'
+                   '\t2. Rectangle\n'
+                   '\t3. Triangle\n'
+                   '>: '))
+if choice == 1:
+    r = float(input('\n r = '))
+    fig = Circle(r)
+    print(f'\nCircle area is: {fig.area()}')
+elif choice == 2:
+    a = float(input('\n a = '))
+    b = float(input(' b = '))
+    fig = Rectangle(a, b)
+    print(f'\nRectangle area is: {fig.area()}')
+elif choice == 3:
+    a = float(input('\n a = '))
+    b = float(input(' b = '))
+    c = float(input(' c = '))
+    fig = Triangle(a, b, c)
+    print(f'\nTriangle area is: {fig.area()}')
+else:
+    exit()
