@@ -42,7 +42,7 @@ def cubes_sum(number: int) -> int:
         Функция нахождения суммы кубов для каждого N от 0 до 10 000,
         где N задаётся пользователем при вызове функции
         :return: сумма кубов
-        """
+    """
     result = 0
     for _ in range(number + 1):
         result += sum([i_num ** 3 for i_num in range(10 ** 4)])
