@@ -16,32 +16,54 @@
 # Нельзя было создавать объекты класса Shape.
 # Наследники класса Shape переопределяли его метод area, чтобы объекты этих классов можно было использовать.
 
+import math
+
 
 class __Shape:
-    def rectangle_square(self, a, b):
-        return print(a * b)
+    def __init__(self, a=None, b=None, c=None, p=None, r=None):
+        self.a = a if a else None
+        self.b = b if b else None
+        self.c = c if c else None
+        self.p = p if p else None
+        self.r = r if r else None
 
-    def any_square(self):
-        if isinstance(object, Rectangle):
-            return rectangle_square()
-    # TODO
+    def circle_area(self):
+        return round(math.pi * (self.r ** 2), 2)
+
+    def rectangle_area(self):
+        return round(self.a * self.b, 2)
+
+    def triangle_area(self):
+        return round(math.sqrt(self.p * (self.p - self.a) * (self.p - self.b) * (self.p - self.c)), 2)
+
+    def area(self):
+        if isinstance(self, Circle):
+            return self.circle_area()
+        elif isinstance(self, Rectangle):
+            return self.rectangle_area()
+        elif isinstance(self, Triangle):
+            return self.triangle_area()
 
 
 class Circle(__Shape):
-    # TODO
-    pass
+    def __init__(self, r):
+        super().__init__(r=r)
 
 
 class Rectangle(__Shape):
-    def __init__(self):
-        super().__init__()
-    # TODO
+    def __init__(self, a, b):
+        super().__init__(a=a, b=b)
 
 
 class Triangle(__Shape):
-    # TODO
-    pass
+    def __init__(self, a, b, c):
+        p = (a + b + c) / 2
+        super().__init__(a=a, b=b, c=c, p=p)
 
 
-qwerty = Rectangle()
-qwerty.rectangle_square(3, 4)
+fig_1 = Rectangle(3, 4)
+fig_2 = Circle(5)
+fig_3 = Triangle(3, 4, 5)
+print(fig_1.area())
+print(fig_2.area())
+print(fig_3.area())
