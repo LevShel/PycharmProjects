@@ -58,7 +58,8 @@ class TaskManager:
         sorted_tasks = []
         for task in self.task_list:
             sorted_tasks.append(task.get_tasks())
-        # TODO настроить вывод каждой задачи в новой строке
+        # TODO настроить вывод каждой задачи в новой строке:
+        #  COMPLETED: см. ../SB_Lessons/Part_2/Lesson_2_13/Stack_TaskManager.py
         return str(sorted(sorted_tasks, key=lambda x: list(x.keys())))
 
 
