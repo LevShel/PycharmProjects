@@ -48,6 +48,7 @@ def cubes_sum(number: int) -> int:
         result += sum([i_num ** 3 for i_num in range(10 ** 4)])
     return result
 
+
 print(squares_sum.__name__, squares_sum.__doc__)
 my_sum = squares_sum()
 print(my_sum)
