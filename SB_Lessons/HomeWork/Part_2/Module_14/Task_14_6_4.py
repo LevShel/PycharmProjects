@@ -9,6 +9,9 @@ from typing import Callable, Any
 
 
 # def counter(func: Callable) -> Any:
+#     """
+#     Декоратор, считающий и выводящий количество вызовов декорируемой функции.
+#     """
 #     __count = 0
 #
 #     def get_count() -> int:
@@ -29,6 +32,9 @@ from typing import Callable, Any
 #     return wrapping
 
 def counter(func: Callable) -> Any:
+    """
+    Декоратор, считающий и выводящий количество вызовов декорируемой функции.
+    """
     @functools.wraps(func)
     def wrapped(*args, **kwargs) -> Any:
         if not hasattr(wrapped, 'call_count'):
