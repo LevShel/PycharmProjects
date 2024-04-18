@@ -20,10 +20,10 @@
 # 113.09733552923255
 
 import math
-from abc import abstractmethod
+from abc import ABC, abstractmethod
 
 
-class MyMath:
+class MyMath(ABC):
     """
     Класс для различных математических вычислений,
     связанных с фигурами.
