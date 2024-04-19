@@ -19,13 +19,11 @@
 # True
 # False
 
-from abc import ABC, abstractmethod
 
+class Date:
 
-class Date(ABC):
-
-    @abstractmethod
-    def from_string(input_date: str) -> str:
+    @classmethod
+    def from_string(cls, input_date: str) -> str:
         """
         Преобразует строку в формате "день-месяц-год" в объект даты.
         Args:
@@ -34,14 +32,14 @@ class Date(ABC):
             str: Строковое представление даты в виде "День: <day> Месяц: <month> Год: <year>",
             если дата корректна, иначе 'False'.
         """
-        day, month, year = input_date.split('-')
+        day, month, year = map(int, input_date.split('-'))
         if Date.is_date_valid(input_date):
             return f'День: {day}\tМесяц: {month}\tГод: {year}'
         else:
             return 'False'
 
-    @abstractmethod
-    def is_date_valid(input_date: str) -> bool:
+    @classmethod
+    def is_date_valid(cls, input_date: str) -> bool:
         """
         Проверяет корректность даты.
         Args:
@@ -49,7 +47,7 @@ class Date(ABC):
         Returns:
             bool: True, если дата корректна, иначе False.
         """
-        day, month, year = input_date.split('-')
+        day, month, year = map(int, input_date.split('-'))
         if ((1 <= int(day) <= 31) and
                 (1 <= int(month) <= 12) and
                 (int(year) > 0)):
@@ -58,7 +56,7 @@ class Date(ABC):
             return False
 
 
-date = Date.from_string('10-12-2077')
-print(date)  # День: 10 Месяц: 12 Год: 2077
+my_date = Date.from_string('10-12-2077')
+print(my_date)  # День: 10 Месяц: 12 Год: 2077
 print(Date.is_date_valid('10-12-2077'))  # True
 print(Date.is_date_valid('40-12-2077'))  # False
