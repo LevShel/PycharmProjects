@@ -11,19 +11,22 @@
 # <тут содержимое папки C:\\>
 
 import os
-from collections.abc import Iterator
 from contextlib import contextmanager
+from typing import Any
 
 
 @contextmanager
-def in_dir(new_path) -> Iterator:
+def in_dir(new_path) -> Any:
     try:
-        # os.chdir(new_path)
+        print(f'Files in {new_path}')
         yield os.chdir(new_path)
     except Exception as exc:
         print(exc)
-        return True
+        print('Files in current path:')
+        yield True
 
 
 with in_dir('E:\\'):
+    print(os.listdir())
+with in_dir('C:\\'):
     print(os.listdir())
