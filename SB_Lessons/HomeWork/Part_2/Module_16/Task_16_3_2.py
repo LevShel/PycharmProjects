@@ -5,4 +5,24 @@
 # По умолчанию декоратор ждёт одну секунду. Помимо этого сделайте так, чтобы декоратор можно было использовать
 # как с аргументами, так и без них.
 
-# TODO
+import functools
+import time
+from typing import Callable, Any, Optional
+
+
+def slow_down(_func: Optional[Callable] = None, *, duration: int = 0):
+    @functools.wraps(_func)
+    def wrapped(func: Callable) -> Any:
+        print(f'Start timer.sleep({duration})')
+        time.sleep(duration)
+        return func
+    return wrapped
+
+
+@slow_down(duration=3)
+def any_func() -> None:
+    return print('There`s something going on here...')
+
+
+any_func()
+
