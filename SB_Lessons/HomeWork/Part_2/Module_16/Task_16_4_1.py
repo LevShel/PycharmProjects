@@ -5,8 +5,6 @@
 import datetime
 import functools
 import time
-
-
 # from datetime import datetime
 
 
@@ -18,7 +16,6 @@ def creation(cls):
         instance = cls(*args, **kwargs)
         print(f'The time when the instance of the class was created: {datetime.datetime.now(datetime.UTC)}')
         return instance
-
     return wrapper
 
 
