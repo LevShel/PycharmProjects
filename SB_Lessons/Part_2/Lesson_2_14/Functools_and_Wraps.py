@@ -9,7 +9,6 @@ def timer(func: Callable) -> Callable:
     которое заняло выполнение
     декорируемой функции.
     """
-
     @functools.wraps(func)
     def wrapped_func(*args, **kwargs) -> Any:
         started_at = time.time()
