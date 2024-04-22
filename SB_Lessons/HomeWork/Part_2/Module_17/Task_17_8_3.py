@@ -17,13 +17,14 @@ from collections import Counter
 
 
 def can_be_poly(s: str) -> bool:
-    # Подсчет количества каждого символа в строке
-    counts = Counter(s)
-    # Подсчет количества символов с нечетным количеством вхождений
-    odd_counts = sum(1 for count in counts.values() if count % 2 != 0)
-    # Если количество символов с нечетным количеством вхождений не превышает одного,
-    # то из строки можно составить палиндром
-    return odd_counts <= 1
+    # # Подсчет количества каждого символа в строке
+    # counts = Counter(s)
+    # # Подсчет количества символов с нечетным количеством вхождений
+    # odd_counts = sum(1 for count in counts.values() if count % 2 != 0)
+    # # Если количество символов с нечетным количеством вхождений не превышает одного,
+    # # то из строки можно составить палиндром
+    # return odd_counts <= 1
+    return len(list(filter(lambda x: x % 2, Counter(s).values()))) <= 2
 
 
 # Проверка
