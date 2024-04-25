@@ -49,15 +49,33 @@
 
 import json
 
+
+def unpack_dict(d):
+    for key, value in d.items():
+        if not isinstance(value, dict) and not isinstance(value, list):
+            print(f'{key}: {value}')
+            input()
+        elif isinstance(value, list):
+            for item in value:
+                print(key)
+                unpack_dict(item)
+        else:
+            print(key)
+            unpack_dict(value)
+
+
 with open('json_old.json', 'r', encoding='utf-8') as file:
     data_old = json.load(file)
 with open('json_new.json', 'r', encoding='utf-8') as file:
     data_new = json.load(file)
 
 # TODO
-for key, value in data_old.items():
-    if data_old[key] != data_new[key]:
-        # print(key, value)
-        with open('result.json', 'w') as file:
-            json.dump(f'{key}: {value}', file, indent=4)
+unpack_dict(data_old)
+# for key, value in data_old.items():
+# if not isinstance(value, dict):
+#     print(f'{key}: {value}')
+#     input()
+# if data_old[key] != data_new[key]:
+# with open('result.json', 'w') as file:
+#     json.dump(f'{key}: {value}', file, indent=4)
 # TODO
