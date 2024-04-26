@@ -48,34 +48,66 @@
 # Обратите внимание: в result представлены не все изменившиеся поля, а лишь те, что объявлены в diff_list.
 
 import json
+from typing import Any
 
 
-def unpack_dict(d):
-    for key, value in d.items():
-        if not isinstance(value, dict) and not isinstance(value, list):
-            print(f'{key}: {value}')
-            input()
-        elif isinstance(value, list):
-            for item in value:
-                print(key)
-                unpack_dict(item)
+def unpack_dict(_dictionary: Any) -> None:
+    """
+    Функция распаковки словаря из json-файла.
+    """
+    for _key, _value in _dictionary.items():
+        if (not isinstance(_value, dict) and
+                not isinstance(_value, list)):
+            print(f'{_key}: {_value}')
+        elif isinstance(_value, list):
+            if not _value:
+                print(f'{_key}: ')
+            else:
+                for _item in _value:
+                    print(f'{_key}:')
+                    unpack_dict(_item)
         else:
-            print(key)
-            unpack_dict(value)
+            print(f'{_key}:')
+            unpack_dict(_value)
 
 
-with open('json_old.json', 'r', encoding='utf-8') as file:
-    data_old = json.load(file)
-with open('json_new.json', 'r', encoding='utf-8') as file:
-    data_new = json.load(file)
+def unpack_list(_list: list) -> Any:
+    """
+    Функция для распаковки списка.
+    """
+    for _item in _list:
+        # print(_item)
+        return _item
 
-# TODO
-unpack_dict(data_old)
-# for key, value in data_old.items():
-# if not isinstance(value, dict):
-#     print(f'{key}: {value}')
-#     input()
-# if data_old[key] != data_new[key]:
-# with open('result.json', 'w') as file:
-#     json.dump(f'{key}: {value}', file, indent=4)
-# TODO
+
+def read_json(filename: str) -> Any:
+    """
+    Функция для чтения данных из json-файла.
+    """
+    with open(filename, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return data
+
+
+def write_json(filename: str, data: Any) -> None:
+    """
+    Функция для записи данных в json-файл.
+    """
+    with open(filename, 'w', encoding='utf-8') as file:
+        json_data = json.dumps(data, indent=4)
+        file.write(json_data)
+
+
+data_old = read_json(filename='json_old.json')
+data_new = read_json(filename='json_new.json')
+
+diff_list = []
+for key, value in data_old.items():
+    if data_old[key] != data_new[key]:
+        # print(f'{key}: {value}')
+        diff_list.append({key: value})
+
+write_json(filename='result.json', data=unpack_list(_list=diff_list))
+
+result = read_json(filename='result.json')
+unpack_dict(result)
